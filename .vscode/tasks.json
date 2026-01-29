@@ -1,51 +1,59 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "prep: crear carpeta build del archivo activo",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-Command",
-        "New-Item -ItemType Directory -Force -Path \"${workspaceFolder}\\build\\${relativeFileDirname}\" | Out-Null"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "type": "cppbuild",
-      "label": "C/C++: cl.exe (build por ejercicio en /build/<chapter>)",
-      "command": "cl.exe",
-      "dependsOn": "prep: crear carpeta build del archivo activo",
-      "args": [
-        "/nologo",
-        "/EHsc",
-        "/Zi",
-        "${file}",
-        "/Fe${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe",
-        "/Fo${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.obj",
-        "/Fd${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.pdb"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": ["$msCompile"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Run (archivo activo)",
-      "type": "shell",
-      "dependsOn": "C/C++: cl.exe (build por ejercicio en /build/<chapter>)",
-      "command": "${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": []
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "prep: crear carpeta build del archivo activo",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                "New-Item -ItemType Directory -Force -Path \"${workspaceFolder}\\build\\${relativeFileDirname}\" | Out-Null"
+            ]
+        },
+        {
+            "label": "build (g++) archivo activo -> build/<chapter>/",
+            "type": "shell",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "dependsOn": "prep: crear carpeta build del archivo activo",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe compilar archivo activo",
+            "command": "C:/msys64/ucrt64/bin/g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "C:/msys64/ucrt64/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarea generada por el depurador."
+        }
+    ]
 }

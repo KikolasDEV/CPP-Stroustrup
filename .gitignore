@@ -1,17 +1,19 @@
-# MSVC build artifacts
-*.obj
-*.exe
-*.ilk
-*.pdb
-*.idb
-*.tlog
-*.log
-
-# Folders de build
+# Build
 build/
+
+# VS Code cache
+.vscode/ipch/
+
+# Visual Studio
+.vs/
 Debug/
 Release/
 x64/
 x86/
-.vs/
-.vscode/ipch/
+
+# (Opcional) binarios si algún día compilo fuera de build
+*.exe
+*.o
+*.obj
+*.pdb
+*.ilk
