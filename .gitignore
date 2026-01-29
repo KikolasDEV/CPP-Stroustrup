@@ -1,0 +1,17 @@
+# MSVC build artifacts
+*.obj
+*.exe
+*.ilk
+*.pdb
+*.idb
+*.tlog
+*.log
+
+# Folders de build
+build/
+Debug/
+Release/
+x64/
+x86/
+.vs/
+.vscode/ipch/

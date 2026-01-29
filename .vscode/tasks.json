@@ -2,17 +2,31 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "prep: crear carpeta build del archivo activo",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "New-Item -ItemType Directory -Force -Path \"${workspaceFolder}\\build\\${relativeFileDirname}\" | Out-Null"
+      ],
+      "problemMatcher": []
+    },
+    {
       "type": "cppbuild",
-      "label": "C/C++: cl.exe (build en /build)",
+      "label": "C/C++: cl.exe (build por ejercicio en /build/<chapter>)",
       "command": "cl.exe",
+      "dependsOn": "prep: crear carpeta build del archivo activo",
       "args": [
         "/nologo",
         "/EHsc",
         "/Zi",
         "${file}",
-        "/Fe${workspaceFolder}\\build\\${fileBasenameNoExtension}.exe",
-        "/Fo${workspaceFolder}\\build\\",
-        "/Fd${workspaceFolder}\\build\\"
+        "/Fe${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe",
+        "/Fo${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.obj",
+        "/Fd${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.pdb"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -21,8 +35,17 @@
       "group": {
         "kind": "build",
         "isDefault": true
+      }
+    },
+    {
+      "label": "Run (archivo activo)",
+      "type": "shell",
+      "dependsOn": "C/C++: cl.exe (build por ejercicio en /build/<chapter>)",
+      "command": "${workspaceFolder}\\build\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe",
+      "options": {
+        "cwd": "${workspaceFolder}"
       },
-      "detail": "Compila con MSVC y deja binarios/intermedios en build/."
+      "problemMatcher": []
     }
   ]
 }
