@@ -1,3 +1,8 @@
 {
-    "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe"
+  "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+
+  "code-runner.runInTerminal": true,
+  "code-runner.executorMap": {
+    "cpp": "powershell -NoProfile -ExecutionPolicy Bypass -File .vscode\\run_cpp.ps1 -src"
+  }
 }
